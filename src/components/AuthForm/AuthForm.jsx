@@ -17,7 +17,7 @@ const AuthForm = () => {
 
            {isLogin ? <Login /> : <Signup />}
             
-            {/* OR */}
+            {/* OR
             <Flex alignItems={"center"} justifyContent={"center"} my={4} gap={1} w={"full"}>
                 <Box flex={2} h={"1px"} bg={"gray.500"}/>
                 <Text mx={1} color={"white"}>
@@ -25,7 +25,7 @@ const AuthForm = () => {
                     </Text>
                 <Box flex={2} h={"1px"} bg={"gray.500"}/>
             </Flex>
-            <GoogleAuth/>
+            <GoogleAuth prefix={isLogin ? "Log in" : "Sign up"}/> */}
             
         </VStack>
     </Box>

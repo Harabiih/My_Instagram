@@ -1,32 +1,33 @@
-import { Flex, Text, VStack, Link, Box } from "@chakra-ui/react";
+import { Box, Flex, Link, Text, VStack } from "@chakra-ui/react";
 import SuggestedHeader from "./SuggestedHeader";
 import SuggestedUser from "./SuggestedUser";
+import useGetSuggestedUsers from "../../hooks/useGetSuggestedUsers";
 
 const SuggestedUsers = () => {
-  return (
-    <VStack py={8} px={6} gap={4}>
-      {/* Header Section */}
-      <SuggestedHeader />
+	const { isLoading, suggestedUsers } = useGetSuggestedUsers();
 
-      {/* Suggested Users Header */}
-      <Flex alignItems="center" justifyContent="space-between" w="full">
-        <Text fontSize={12} fontWeight="bold" color="gray.500">
-          Suggested for you
-        </Text>
-        <Text
-          fontSize={12}
-          fontWeight="bold"
-          _hover={{ color: "gray.400" }}
-          cursor="pointer"
-        >
-          See All
-        </Text>
-      </Flex>
+	// optional: render loading skeleton
+	if (isLoading) return null;
 
-      {/* Suggested Users */}
-        <SuggestedUser  username="Mufti Menk" followers={40000} avatar='Muftimenk.jpeg' />
-        <SuggestedUser username="Zakir Naik" followers={50000} avatar='ZakirNaik.jpeg' />
-        <SuggestedUser username="Flowers for her" followers={1300} avatar='3.jpeg' />
+	return (
+		<VStack py={8} px={6} gap={4}>
+			<SuggestedHeader />
+
+			{suggestedUsers.length !== 0 && (
+				<Flex alignItems={"center"} justifyContent={"space-between"} w={"full"}>
+					<Text fontSize={12} fontWeight={"bold"} color={"gray.500"}>
+						Suggested for you
+					</Text>
+					<Text fontSize={12} fontWeight={"bold"} _hover={{ color: "gray.400" }} cursor={"pointer"}>
+						See All
+					</Text>
+				</Flex>
+			)}
+
+			{suggestedUsers.map((user) => (
+				<SuggestedUser user={user} key={user.id} />
+			))}
+
 
       {/* Footer Section */}
       <Box fontSize={12} color="gray.500" mt={5} alignSelf="start">
